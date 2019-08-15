@@ -130,8 +130,8 @@ process.tagMuons = cms.EDFilter("PATMuonSelector",
        + "|| !triggerObjectMatchesByPath('HLT_HIMu15_v*',1,0).empty()"
        + "|| !triggerObjectMatchesByPath('HLT_HIMu17_v*',1,0).empty()"
        + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu20_v*',1,0).empty()"
-       + "|| !triggerObjectMatchesByPath('HLT_HIL3Mu20_v*',1,0).empty())"
-       + " && pfIsolationR04().sumChargedHadronPt/pt < 0.2"),
+       + "|| !triggerObjectMatchesByPath('HLT_HIL3Mu20_v*',1,0).empty())"),
+       # + " && pfIsolationR04().sumChargedHadronPt/pt < 0.2"),
 )
 
 process.oneTag  = cms.EDFilter("CandViewCountFilter", src = cms.InputTag("tagMuons"), minNumber = cms.uint32(1))
@@ -164,9 +164,9 @@ process.probeMuonsMCMatch = process.tagMuonsMCMatch.clone(src = "probeMuons", ma
 from MuonAnalysis.TagAndProbe.muon.tag_probe_muon_extraIso_cff import ExtraIsolationVariables
 
 
-from MuonAnalysis.TagAndProbe.puppiIso_cfi import load_fullPFpuppiIsolation
-process.fullPuppIsolationSequence = load_fullPFpuppiIsolation(process)
-from MuonAnalysis.TagAndProbe.puppiIso_cff import PuppiIsolationVariables
+# from MuonAnalysis.TagAndProbe.puppiIso_cfi import load_fullPFpuppiIsolation
+# process.fullPuppIsolationSequence = load_fullPFpuppiIsolation(process)
+# from MuonAnalysis.TagAndProbe.puppiIso_cff import PuppiIsolationVariables
 
 process.tpTree = cms.EDAnalyzer("TagProbeFitTreeProducer",
     # choice of tag and probe pairs, and arbitration
@@ -176,24 +176,24 @@ process.tpTree = cms.EDAnalyzer("TagProbeFitTreeProducer",
     variables = cms.PSet(
         AllVariables,
         ExtraIsolationVariables,
-        PuppiIsolationVariables,
+        # PuppiIsolationVariables,
         isoTrk03Abs = cms.InputTag("probeMuonsIsoValueMaps","probeMuonsIsoFromDepsTk"),
         isoTrk03Rel = cms.InputTag("probeMuonsIsoValueMaps","probeMuonsRelIsoFromDepsTk"),
         dxyBS = cms.InputTag("muonDxyPVdzmin","dxyBS"),
         dxyPVdzmin = cms.InputTag("muonDxyPVdzmin","dxyPVdzmin"),
         dzPV = cms.InputTag("muonDxyPVdzmin","dzPV"),
-        JetPtRatio= cms.InputTag("AddLeptonJetRelatedVariables","JetPtRatio"),
-        JetPtRel= cms.InputTag("AddLeptonJetRelatedVariables","JetPtRel"),
-        JetNDauCharged= cms.InputTag("AddLeptonJetRelatedVariables","JetNDauCharged"),
-        JetBTagCSV= cms.InputTag("AddLeptonJetRelatedVariables","JetBTagCSV"),
-        miniIsoCharged = cms.InputTag("muonMiniIsoCharged","miniIso"), 
-        activity_miniIsoCharged = cms.InputTag("muonMiniIsoCharged","activity"), 
-        miniIsoPUCharged = cms.InputTag("muonMiniIsoPUCharged","miniIso"), 
-        activity_miniIsoPUCharged = cms.InputTag("muonMiniIsoPUCharged","activity"), 
-        miniIsoNeutrals = cms.InputTag("muonMiniIsoNeutrals","miniIso"), 
-        activity_miniIsoNeutrals = cms.InputTag("muonMiniIsoNeutrals","activity"), 
-        miniIsoPhotons = cms.InputTag("muonMiniIsoPhotons","miniIso"), 
-        activity_miniIsoPhotons = cms.InputTag("muonMiniIsoPhotons","activity"), 
+        # JetPtRatio= cms.InputTag("AddLeptonJetRelatedVariables","JetPtRatio"),
+        # JetPtRel= cms.InputTag("AddLeptonJetRelatedVariables","JetPtRel"),
+        # JetNDauCharged= cms.InputTag("AddLeptonJetRelatedVariables","JetNDauCharged"),
+        # JetBTagCSV= cms.InputTag("AddLeptonJetRelatedVariables","JetBTagCSV"),
+        # miniIsoCharged = cms.InputTag("muonMiniIsoCharged","miniIso"), 
+        # activity_miniIsoCharged = cms.InputTag("muonMiniIsoCharged","activity"), 
+        # miniIsoPUCharged = cms.InputTag("muonMiniIsoPUCharged","miniIso"), 
+        # activity_miniIsoPUCharged = cms.InputTag("muonMiniIsoPUCharged","activity"), 
+        # miniIsoNeutrals = cms.InputTag("muonMiniIsoNeutrals","miniIso"), 
+        # activity_miniIsoNeutrals = cms.InputTag("muonMiniIsoNeutrals","activity"), 
+        # miniIsoPhotons = cms.InputTag("muonMiniIsoPhotons","miniIso"), 
+        # activity_miniIsoPhotons = cms.InputTag("muonMiniIsoPhotons","activity"), 
         nSplitTk  = cms.InputTag("splitTrackTagger"),
         mt  = cms.InputTag("probeMetMt","mt"),
     ),
@@ -235,7 +235,7 @@ process.tpTree = cms.EDAnalyzer("TagProbeFitTreeProducer",
        HighPtSingleTriggerFlags
           ),
     pairVariables = cms.PSet(
-        nJets30 = cms.InputTag("njets30Module"),
+        # nJets30 = cms.InputTag("njets30Module"),
         dz      = cms.string("daughter(0).vz - daughter(1).vz"),
         pt      = cms.string("pt"), 
         rapidity = cms.string("rapidity"),
@@ -288,12 +288,12 @@ process.extraProbeVariablesSeq = cms.Sequence(
     process.probeMuonsIsoSequence +
     process.computeCorrectedIso + 
     process.splitTrackTagger +
-    process.muonDxyPVdzmin + 
-    process.probeMetMt + process.tagMetMt +
-    process.miniIsoSeq +
+    process.muonDxyPVdzmin +
+    process.probeMetMt + process.tagMetMt
+    # process.miniIsoSeq +
     # process.ak4PFCHSJetsL1L2L3 +
-    process.ak4PFCHSL1FastL2L3CorrectorChain * process.AddLeptonJetRelatedVariables +
-    process.fullPuppIsolationSequence
+    # process.ak4PFCHSL1FastL2L3CorrectorChain * process.AddLeptonJetRelatedVariables +
+    # process.fullPuppIsolationSequence
 )
 
 process.tnpSimpleSequence = cms.Sequence(
@@ -391,7 +391,7 @@ process.tpTreeSta = process.tpTree.clone(
         combRelIsoPF04dBeta = IsolationVariables.combRelIsoPF04dBeta,
     ),
     pairVariables = cms.PSet(
-        nJets30 = cms.InputTag("njets30ModuleSta"),
+        # nJets30 = cms.InputTag("njets30ModuleSta"),
         dz      = cms.string("daughter(0).vz - daughter(1).vz"),
         pt      = cms.string("pt"), 
         rapidity = cms.string("rapidity"),
