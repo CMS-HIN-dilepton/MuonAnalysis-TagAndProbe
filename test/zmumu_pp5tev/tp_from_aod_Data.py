@@ -100,32 +100,32 @@ process.load("MuonAnalysis.TagAndProbe.common_modules_cff")
 
 ### Trigger
 LowPtDoubleTriggerFlags = cms.PSet(
-      HLTL1_DoubleMuOpen_v0 = cms.string("!triggerObjectMatchesByPath('HLT_HIL1DoubleMuOpen_v*',1,0).empty()"),
-      HLTL1_DoubleMu0_v0 = cms.string("!triggerObjectMatchesByPath('HLT_HIL1DoubleMu0_v*',1,0).empty()"),
-      HLTL1_DoubleMu0_v2 = cms.string("(!triggerObjectMatchesByPath('HLT_HIL1DoubleMu0_v*',1,0).empty() && !triggerObjectMatchesByFilter('hltL1fL1sDoubleMu0L1Filtered0').empty())"),
-      HLTL2_DoubleMu0_v0 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2DoubleMu0_v*',1,0).empty()"),
+      # HLTL1_DoubleMuOpen_v0 = cms.string("!triggerObjectMatchesByPath('HLT_HIL1DoubleMuOpen_v*',1,0).empty()"),
+      # HLTL1_DoubleMu0_v0 = cms.string("!triggerObjectMatchesByPath('HLT_HIL1DoubleMu0_v*',1,0).empty()"),
+      # HLTL1_DoubleMu0_v2 = cms.string("(!triggerObjectMatchesByPath('HLT_HIL1DoubleMu0_v*',1,0).empty() && !triggerObjectMatchesByFilter('hltL1fL1sDoubleMu0L1Filtered0').empty())"),
+      # HLTL2_DoubleMu0_v0 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2DoubleMu0_v*',1,0).empty()"),
       HLTL3_DoubleMu0_v0 = cms.string("!triggerObjectMatchesByPath('HLT_HIL3DoubleMu0_v*',1,0).empty()"),
       )
 LowPtSingleTriggerFlags = cms.PSet(
       # Single Muon Trigger Paths
-      HLT_HIL2Mu3_NHitQ10 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu3_NHitQ10_v*',1,0).empty()"),
+      # HLT_HIL2Mu3_NHitQ10 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu3_NHitQ10_v*',1,0).empty()"),
       HLT_HIL3Mu3 = cms.string("!triggerObjectMatchesByPath('HLT_HIL3Mu3_v*',1,0).empty()"),
       HLT_HIL3Mu3_NHitQ10 = cms.string("!triggerObjectMatchesByPath('HLT_HIL3Mu3_NHitQ10_v*',1,0).empty()"),
-      HLT_HIL2Mu5_NHitQ10 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu5_NHitQ10_v*',1,0).empty()"),
+      # HLT_HIL2Mu5_NHitQ10 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu5_NHitQ10_v*',1,0).empty()"),
       HLT_HIL3Mu5 = cms.string("!triggerObjectMatchesByPath('HLT_HIL3Mu5_v*',1,0).empty()"),
       HLT_HIL3Mu5_NHitQ10 = cms.string("!triggerObjectMatchesByPath('HLT_HIL3Mu5_NHitQ10_v*',1,0).empty()"),
-      HLT_HIL2Mu7 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu7_v*',1,0).empty()"),
+      # HLT_HIL2Mu7 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu7_v*',1,0).empty()"),
       HLT_HIL3Mu7 = cms.string("!triggerObjectMatchesByPath('HLT_HIL3Mu7_v*',1,0).empty()"),
       )
 HighPtSingleTriggerFlags = cms.PSet(
       # Single Muon Trigger Paths
-      HLT_HIL2Mu12 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu12_v*',1,0).empty()"),
+      # HLT_HIL2Mu12 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu12_v*',1,0).empty()"),
       HLT_HIL3Mu12 = cms.string("!triggerObjectMatchesByPath('HLT_HIL3Mu12_v*',1,0).empty()"),
-      HLT_HIL2Mu15 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu15_v*',1,0).empty()"),
+      # HLT_HIL2Mu15 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu15_v*',1,0).empty()"),
       HLT_HIL3Mu15 = cms.string("!triggerObjectMatchesByPath('HLT_HIL3Mu15_v*',1,0).empty()"),
-      HLT_HIMu15 = cms.string("!triggerObjectMatchesByPath('HLT_HIMu15_v*',1,0).empty()"),
-      HLT_HIMu17 = cms.string("!triggerObjectMatchesByPath('HLT_HIMu17_v*',1,0).empty()"),
-      HLT_HIL2Mu20 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu20_v*',1,0).empty()"),
+      # HLT_HIMu15 = cms.string("!triggerObjectMatchesByPath('HLT_HIMu15_v*',1,0).empty()"),
+      # HLT_HIMu17 = cms.string("!triggerObjectMatchesByPath('HLT_HIMu17_v*',1,0).empty()"),
+      # HLT_HIL2Mu20 = cms.string("!triggerObjectMatchesByPath('HLT_HIL2Mu20_v*',1,0).empty()"),
       HLT_HIL3Mu20 = cms.string("!triggerObjectMatchesByPath('HLT_HIL3Mu20_v*',1,0).empty()"),
       )
 ### Tracking
@@ -135,21 +135,21 @@ TRACK_CUTS = "track.isNonnull && track.hitPattern.trackerLayersWithMeasurement >
 process.tagMuons = cms.EDFilter("PATMuonSelector",
     src = cms.InputTag("patMuonsWithTrigger"),
     cut = cms.string("pt > 15 && abs(eta)<2.4 && "+MuonIDFlags.TightId.value()+" && ("
-       +    "!triggerObjectMatchesByPath('HLT_HIL2Mu3_NHitQ10_v*',1,0).empty()"
-       + "|| !triggerObjectMatchesByPath('HLT_HIL3Mu3_v*',1,0).empty()"
+       # +    "!triggerObjectMatchesByPath('HLT_HIL2Mu3_NHitQ10_v*',1,0).empty()"
+       + "!triggerObjectMatchesByPath('HLT_HIL3Mu3_v*',1,0).empty()"
        + "|| !triggerObjectMatchesByPath('HLT_HIL3Mu3_NHitQ10_v*',1,0).empty()"
-       + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu5_NHitQ10_v*',1,0).empty()"
+       # + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu5_NHitQ10_v*',1,0).empty()"
        + "|| !triggerObjectMatchesByPath('HLT_HIL3Mu5_v*',1,0).empty()"
        + "|| !triggerObjectMatchesByPath('HLT_HIL3Mu5_NHitQ10_v*',1,0).empty()"
-       + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu7_v*',1,0).empty()"
+       # + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu7_v*',1,0).empty()"
        + "|| !triggerObjectMatchesByPath('HLT_HIL3Mu7_v*',1,0).empty()"
-       + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu12_v*',1,0).empty()"
+       # + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu12_v*',1,0).empty()"
        + "|| !triggerObjectMatchesByPath('HLT_HIL3Mu12_v*',1,0).empty()"
-       + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu15_v*',1,0).empty()"
+       # + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu15_v*',1,0).empty()"
        + "|| !triggerObjectMatchesByPath('HLT_HIL3Mu15_v*',1,0).empty()"
-       + "|| !triggerObjectMatchesByPath('HLT_HIMu15_v*',1,0).empty()"
-       + "|| !triggerObjectMatchesByPath('HLT_HIMu17_v*',1,0).empty()"
-       + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu20_v*',1,0).empty()"
+       # + "|| !triggerObjectMatchesByPath('HLT_HIMu15_v*',1,0).empty()"
+       # + "|| !triggerObjectMatchesByPath('HLT_HIMu17_v*',1,0).empty()"
+       # + "|| !triggerObjectMatchesByPath('HLT_HIL2Mu20_v*',1,0).empty()"
        + "|| !triggerObjectMatchesByPath('HLT_HIL3Mu20_v*',1,0).empty())"),
        # + " && pfIsolationR04().sumChargedHadronPt/pt < 0.2"),
 )
