@@ -457,7 +457,7 @@ process.tagAndProbeSta = cms.Path(
 )
 
 
-if True: # turn on for tracking efficiency using gen particles as probe
+if False: # turn on for tracking efficiency using gen particles as probe
     process.probeGen = cms.EDFilter("GenParticleSelector",
         src = cms.InputTag("genParticles"),
         cut = cms.string("abs(pdgId) == 13 && pt > 3 && abs(eta) < 2.4 && isPromptFinalState"),
@@ -520,7 +520,7 @@ if True: # turn on for tracking efficiency using gen particles as probe
         process.tpTreeGen
     )
 
-if True: # turn on for tracking efficiency using L1 seeds
+if False: # turn on for tracking efficiency using L1 seeds
     process.probeL1 = cms.EDFilter("CandViewSelector",
         src = cms.InputTag("gmtStage2Digis:Muon"),
         cut = cms.string("pt >= 5 && abs(eta) < 2.4"),
@@ -660,7 +660,7 @@ process.RandomNumberGeneratorService.tkTracksNoZ0 = cms.PSet( initialSeed = cms.
 
 process.TFileService = cms.Service("TFileService", fileName = cms.string("tnpZ_MC.root"))
 
-if True: # enable and do cmsRun tp_from_aod_MC.py /eos/path/to/run/on [ extra_postfix ] to run on all files in that eos path 
+if False: # enable and do cmsRun tp_from_aod_MC.py /eos/path/to/run/on [ extra_postfix ] to run on all files in that eos path 
     import sys
     args = sys.argv[1:]
     if (sys.argv[0] == "cmsRun"): args = sys.argv[2:]

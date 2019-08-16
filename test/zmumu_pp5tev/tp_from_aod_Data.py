@@ -155,12 +155,12 @@ process.tagMuons = cms.EDFilter("PATMuonSelector",
 )
 process.pseudoTag = cms.EDFilter("MuonSelector",
     src = cms.InputTag("muons"),
-    cut = cms.string("pt > 15 && isGlobalMuon && numberOfMatchedStations >= 2 && pfIsolationR04().sumChargedHadronPt/pt < 0.2")
+    cut = cms.string("pt > 15 && isGlobalMuon && numberOfMatchedStations >= 2") # && pfIsolationR04().sumChargedHadronPt/pt < 0.2")
 )
 if TRIGGER == "DoubleMu":
     process.tagMuons.cut = ("pt > 6 && (isGlobalMuon || isTrackerMuon) && isPFMuon "+
-                            " && !triggerObjectMatchesByCollection('hltL3MuonCandidates').empty()"+
-                            " && pfIsolationR04().sumChargedHadronPt/pt < 0.2")
+                            " && !triggerObjectMatchesByCollection('hltL3MuonCandidates').empty()")
+                            # " && pfIsolationR04().sumChargedHadronPt/pt < 0.2")
 
 process.oneTag  = cms.EDFilter("CandViewCountFilter", src = cms.InputTag("tagMuons"), minNumber = cms.uint32(1))
 
@@ -478,7 +478,7 @@ process.tagAndProbeSta = cms.Path(
 )
 
 
-if True: # turn on for tracking efficiency using L1 seeds
+if False: # turn on for tracking efficiency using L1 seeds
     process.probeL1 = cms.EDFilter("CandViewSelector",
         src = cms.InputTag("l1extraParticles"),
         cut = cms.string("pt >= 5 && abs(eta) < 2.4"),
